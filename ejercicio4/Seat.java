@@ -1,25 +1,23 @@
-package ejercicio4;
-
-public class Asiento {
-    private int id;
+public class Seat {
+    private int seatId;
     private int row;
     private Double price;
-    
-    public Asiento() {
+
+    public Seat() {
     }
 
-    public Asiento(int id, int row, Double price) {
-        this.id = id;
-        this.row = row;
+    public Seat(Double price, int row, int seatId) {
         this.price = price;
+        this.row = row;
+        this.seatId = seatId;
     }
 
-    public int getId() {
-        return id;
+    public int getSeatId() {
+        return seatId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
     }
 
     public int getRow() {
@@ -37,6 +35,4 @@ public class Asiento {
     public void setPrice(Double price) {
         this.price = price;
     }
-    
-    
 }
