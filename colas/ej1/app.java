@@ -5,14 +5,16 @@ import java.util.Queue;
 
 public class app {
     private static Queue<Client> clientsQueue = new LinkedList<>();
-    private static List<Client> ticketsRegistered = new ArrayList();
+    private static Queue<Client> ticketsRegistered = new LinkedList<>();
 
     private static Methods bank = new Methods();
 
     public static void main(String[] args) {
+        boolean execution = true;
+
         // Showing menu
-        while (true) {
-            int option = bank.showMenu();
+        while (execution) {
+            int option = bank.getAction();
 
             switch (option) {
                 case 0:
@@ -32,6 +34,11 @@ public class app {
                     break;
                 case 5:
                     bank.watchShifts(ticketsRegistered);
+                    break;
+                case 6:
+                    System.out.println("Exiting...");
+                    execution = false;
+
                     break;
                 default:
                     System.out.println("This option doesn't exists");

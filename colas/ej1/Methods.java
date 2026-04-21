@@ -7,7 +7,7 @@ import java.time.LocalDateTime;;
 public class Methods {
     static Scanner keyboard = new Scanner(System.in);
 
-    public int showMenu() {
+    public int getAction() {
         try {
             System.out.println("---------------------------");
             System.out.println("---Welcome to Esperanza Bank---");
@@ -16,18 +16,19 @@ public class Methods {
             System.out.println("3. See next client in shift");
             System.out.println("4. Watch queue");
             System.out.println("5. Watch all registered shifts");
+            System.out.println("6. Exit");
 
             System.out.print("Type the option you want do: ");
             int option = keyboard.nextInt();
 
             return option;
         } catch(Exception err) {
-            System.out.println(err.getMessage());
+            keyboard.nextLine(); // Buffer reset
             return 0;
         }
     }
 
-    public void addClient(Queue<Client> actualQueue, List<Client> ticketsRegistered) {
+    public boolean addClient(Queue<Client> actualQueue, Queue<Client> ticketsRegistered) {
         keyboard.nextLine(); // Buffer reset
 
         System.out.println("---------------------------");
@@ -58,7 +59,7 @@ public class Methods {
                 break;
             default:
                 System.out.println("That option doesn't exists");
-                return; // Breaks the running
+                return false; // Breaks the running
         }
 
         String arrivalTime = LocalDateTime.now().toString();
@@ -74,13 +75,15 @@ public class Methods {
 
         // Printing result
         System.out.println("Added client shift to system.");
+
+        return true;
     }
 
-    public void attendClient(Queue<Client> actualQueue, List<Client> ticketsRegistered) {
+    public boolean attendClient(Queue<Client> actualQueue, Queue<Client> ticketsRegistered) {
         // Checking if it's empty
         if(actualQueue.isEmpty()) {
             System.out.println("There isn't any client to attend");
-            return;
+            return false;
         }
         
         // Changing client attend date
@@ -88,48 +91,54 @@ public class Methods {
 
         actualClient.setServed(true);
 
-        Client actualTicket = ticketsRegistered.get(0);
-
         // Printing result
         System.out.println("Client served.");
+
+        return true;
     }
 
-    public void nextClient(Queue<Client> actualQueue) {
+    public boolean nextClient(Queue<Client> actualQueue) {
         // Checking if it's empty or if there isn't next client
         if(actualQueue.isEmpty()) {
             System.out.println("There isn't any client to attend");
-            return;
+            return false;
         }
 
         // Printing it
         Client nextClient = actualQueue.peek();
 
         System.out.println(nextClient.toString());
+
+        return true;
     }
 
-    public void watchQueue(Queue<Client> actualQueue) {
+    public boolean watchQueue(Queue<Client> actualQueue) {
         // Checking that it's not empty
         if(actualQueue.isEmpty()) {
             System.out.println("There isn't any client to attend");
-            return;
+            return false;
         }
 
         // Printing it
         for(Client actualClient : actualQueue) {
             System.out.println(actualClient.toString());
         }
+
+        return true;
     }
 
-    public void watchShifts(List<Client> ticketsRegistered) {
+    public boolean watchShifts(Queue<Client> ticketsRegistered) {
         // Checking that isn't empty
         if(ticketsRegistered.isEmpty()) {
             System.out.println("There isn't any client to attend");
-            return;
+            return false;
         }
 
         // Printing it
         for(Client actualClient : ticketsRegistered) {
             System.out.println(actualClient.toString());
         }
+
+        return true;
     }
 }
